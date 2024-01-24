@@ -1,0 +1,38 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro'; 
+import Section1 from '../components/Section1.astro'
+import Formulario from '../components/Formulario.astro';
+
+const data = await fetch('https://www.proseguros.mx/wp-json/wp/v2/seguro_auto?acf_format=standard')
+const datos = await data.json() 
+//console.log(datos[0].acf) 
+
+const datosLanding = datos[0].acf 
+---
+
+<Layout title="Welcome to Astro.">
+	  <Section1 
+	  datosLanding={datosLanding} 
+	  />
+	  <Formulario/> 
+	  <a class="whatsapp-icon" href={datosLanding.whatsapp_url}><img src={datosLanding.whatsapp_icon.url} alt="whatsapp"></a>
+</Layout>
+
+<style>
+	.whatsapp-icon{
+		width: 64px;
+		height: 64px;
+		position: fixed;
+		bottom: 50%;
+		right:  3%; 
+	}
+
+	.whatsapp-icon img{
+		width: 48px;
+		height: 48px;
+	}
+</style>
+
+
+  

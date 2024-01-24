@@ -1,0 +1,86 @@
+---
+
+---
+
+
+<div class="contenedor-formulario w-full h-[800px] bg-gray-100 py-10 relative "> 
+    <h3 class="font-bold uppercase text-2xl md:text-2xl text-center p-5 text-[#134290]">Envia un Mensaje y Descarga la información</h3>
+    <div class="row-formulario h-[620px] w-[90%] mx-auto max-w-[1140px] flex flex-col justify-center items-start">
+        
+        <!-- modify this form HTML and place wherever you want your form -->
+<form id="my-form" action="https://formspree.io/f/mnqejpew" method="POST" class="w-[90%] mx-auto md:w-[600px] bg-white p-14 rounded-md shadow-lg">
+     
+     <div class="dato w-full flex flex-col justify-center items-start  py-4">
+        <label class=" text-2xl md:text-2xl">Email:</label>
+        <input required type="email" name="email" class="shadow-md w-full py-3 rounded-md"/>
+     </div>
+     <div class="dato w-full flex flex-col justify-center items-start  py-4">
+        <label class=" text-2xl md:text-2xl">Nombre:</label> 
+     <input required type="text" name="message" class="shadow-md w-full py-3 rounded-md"/>
+     </div>
+     <div class="dato w-full flex flex-col justify-center items-start  py-4">
+        <label class=" text-2xl md:text-2xl">Telefono:</label> 
+     <input required type="text" name="telefono" class="shadow-md w-full py-3 rounded-md"/>
+     </div>
+    <button class="w-full bg-[#134290] py-3 text-white text-2xl md:text-3xl" id="my-form-button">Enviar</button>
+    <p id="my-form-status" class="text-3xl"></p>
+  </form>
+  <!-- Place this script at the end of the body tag -->
+    <div class="catalogo-row flex justify-center items-center w-full h-[60px] mt-2">
+
+    </div>
+    </div>
+</div>
+
+
+  <script>
+      var form = document.getElementById("my-form");
+      
+      async function handleSubmit(event) {
+        event.preventDefault();
+        var status = document.getElementById("my-form-status");
+        var data = new FormData(event.target);
+        fetch(event.target.action, {
+          method: form.method,
+          body: data,
+          headers: {
+              'Accept': 'application/json'
+          }
+        }).then(response => {
+          if (response.ok) {
+            status.innerHTML = "Tu Mensaje ha sido enviado!"; 
+
+            setTimeout(() =>{
+                 const pdf = document.createElement('a') 
+                 pdf.textContent = "Descarga PDF Seguro de Auto" 
+                 pdf.classList.add('bg-[#184c99]' , 'text-white', 'py-3' , 'px-5', 'align-middle')
+                 pdf.setAttribute('href' ,'https://www.proseguros.mx/wp-content/uploads/2024/01/SEGURO-DE-AUTO.pdf'); 
+                 const contenedorFormulario = document.querySelector('.catalogo-row')
+                 contenedorFormulario.appendChild(pdf)
+
+            },2000)
+            
+            form.reset()
+          } else {
+            response.json().then(data => {
+              if (Object.hasOwn(data, 'errors')) {
+                status.innerHTML = data["errors"].map(error => error["message"]).join(", ")
+              } else {
+                status.innerHTML = "Oops! There was a problem submitting your form"
+              }
+            })
+          }
+        }).catch(error => {
+          status.innerHTML = "Oops! There was a problem submitting your form"
+        });
+      }
+      form.addEventListener("submit", handleSubmit) 
+
+     
+  </script>
+
+  <style>
+  
+  </style>
+
+  
