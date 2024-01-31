@@ -21,6 +21,32 @@ import Footer from '../components/Footer.astro';
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
 		
 
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=AW-11473303988"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+		
+		  gtag('config', 'AW-11473303988');
+		</script>
+
+
+<script>
+	function gtag_report_conversion(url) {
+	  var callback = function () {
+		if (typeof(url) != 'undefined') {
+		  window.location = url;
+		}
+	  };
+	  gtag('event', 'conversion', {
+		  'send_to': 'AW-11473303988/2eZMCKOl540ZELTz8t4q',
+		  'event_callback': callback
+	  });
+	  return false;
+	}
+	</script>
+	
 	
 
 	</head>
@@ -28,15 +54,7 @@ import Footer from '../components/Footer.astro';
 		<Header/>
 		<slot />
 		<Footer/>
-		<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-11473303988"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'AW-11473303988');
-</script>
 	</body>
 </html>
 <style is:global>
