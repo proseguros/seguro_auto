@@ -46,6 +46,24 @@ import Footer from '../components/Footer.astro';
 	  return false;
 	}
 	</script>
+
+	<!-- Event snippet for click whatsapp conversion page
+In your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->
+<script>
+	function gtag_report_conversion_whatsapp(url) {
+	  var callback = function () {
+		if (typeof(url) != 'undefined') {
+		  window.location = url;
+		}
+	  };
+	  gtag('event', 'conversion', {
+		  'send_to': 'AW-11473303988/QzhSCOLG540ZELTz8t4q',
+		  'event_callback': callback
+	  });
+	  return false;
+	}
+	</script>
+	
 	
 	
 
@@ -54,7 +72,7 @@ import Footer from '../components/Footer.astro';
 		<Header/>
 		<slot />
 		<Footer/>
-
+   
 	</body>
 </html>
 <style is:global>
@@ -75,6 +93,32 @@ import Footer from '../components/Footer.astro';
 	}
 	
 </style>
+
+<script>
+	window.addEventListener('DOMContentLoaded', function(){
+		
+		
+		const cta1 = document.querySelector('.cta-btn-1') 
+		cta1.addEventListener('click', function(){
+			gtag_report_conversion_whatsapp();
+			
+		})
+
+		const formulario = document.querySelector('#my-form') 
+		//console.log(formulario)
+		formulario.addEventListener('submit', function(){
+			
+			gtag_report_conversion();
+		})
+
+		const ctaHeader = document.querySelector('.cta-header') 
+		ctaHeader.addEventListener('click', function(){
+			
+			 //console.log('cta header')
+			gtag_report_conversion_whatsapp();
+		})
+	})
+</script>
 
 <script>
 	window.addEventListener('DOMContentLoaded', function(){
